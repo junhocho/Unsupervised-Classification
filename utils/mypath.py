@@ -21,7 +21,7 @@ class MyPath(object):
             return '/home/junho/data/Image_Clustering/stl-10'
         
         elif database in ['imagenet', 'imagenet_50', 'imagenet_100', 'imagenet_200']:
-            return '/disk2/ILSVRC12'
+            return '/home/junho/data/Image_Clustering/imagenet'
         
         else:
             raise NotImplementedError
