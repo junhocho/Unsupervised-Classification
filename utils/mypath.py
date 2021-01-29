@@ -12,16 +12,16 @@ class MyPath(object):
         assert(database in db_names)
 
         if database == 'cifar-10':
-            return '/path/to/cifar-10/'
+            return '/home/junho/data/Image_Clustering/cifar-10'
         
         elif database == 'cifar-20':
-            return '/path/to/cifar-20/'
+            return '/home/junho/data/Image_Clustering/cifar-20'
 
         elif database == 'stl-10':
-            return '/path/to/stl-10/'
+            return '/home/junho/data/Image_Clustering/stl-10'
         
         elif database in ['imagenet', 'imagenet_50', 'imagenet_100', 'imagenet_200']:
-            return '/path/to/imagenet/'
+            return '/disk2/ILSVRC12'
         
         else:
             raise NotImplementedError

@@ -132,6 +132,14 @@ def visualize_indices(indices, dataset, hungarian_match):
     import matplotlib.pyplot as plt
     import numpy as np
 
+    import os
+    dataset_name = dataset.__class__.__name__
+    folder_name = '{}-prototypes'.format(dataset_name)
+    try:
+        os.mkdir(folder_name)
+    except:
+        pass
+
     for idx in indices:
         img = np.array(dataset.get_image(idx)).astype(np.uint8)
         img = Image.fromarray(img)
@@ -139,6 +147,8 @@ def visualize_indices(indices, dataset, hungarian_match):
         plt.axis('off')
         plt.imshow(img)
         plt.show()
+
+        img.save('./{}/out-{}.jpg'.format(folder_name, idx))
 
 
 if __name__ == "__main__":
