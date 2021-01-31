@@ -1,7 +1,8 @@
 # conda activate SCAN
 
-python moco.py --config_env configs/env.yml --config_exp configs/pretext/moco_imagenet200.yml
-# python scan.py --config_env configs/env.yml --config_exp configs/scan/scan_cifar10.yml
+# python moco.py --config_env configs/env.yml --config_exp configs/pretext/moco_imagenet200.yml
+## DOWNLOADING???
+python scan.py --config_env configs/env.yml --config_exp configs/scan/scan_imagenet_200.yml
 # python selflabel.py --config_env configs/env.yml --config_exp configs/selflabel/selflabel_cifar10.yml
 
 
