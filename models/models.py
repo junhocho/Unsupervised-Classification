@@ -30,6 +30,44 @@ class ContrastiveModel(nn.Module):
         features = F.normalize(features, dim = 1)
         return features
 
+class HypContrastiveModel(nn.Module):
+    def __init__(self, backbone, head='mlp', features_dim=128):
+        super(HypContrastiveModel, self).__init__()
+        self.backbone = backbone['backbone']
+        self.backbone_dim = backbone['dim']
+        self.head = head
+ 
+        if head == 'linear':
+            self.contrastive_head = nn.Linear(self.backbone_dim, features_dim)
+
+        elif head == 'mlp':
+            self.contrastive_head = nn.Sequential(
+                    nn.Linear(self.backbone_dim, self.backbone_dim),
+                    nn.ReLU(), nn.Linear(self.backbone_dim, features_dim))
+        
+        else:
+            raise ValueError('Invalid head {}'.format(head))
+
+        import hyptorch.nn as hypnn
+        class atdict(dict):
+            __getattr__= dict.__getitem__
+            __setattr__= dict.__setitem__
+            __delattr__= dict.__delitem__
+        hypargs = atdict()
+        hypargs.c = 1.0
+        hypargs.train_x = False
+        hypargs.train_c = False
+        self.tp = hypnn.ToPoincare(
+                c=hypargs.c, train_x=hypargs.train_x, train_c=hypargs.train_c
+                )
+
+
+    def forward(self, x):
+        features = self.contrastive_head(self.backbone(x))
+        features = F.normalize(features, dim = 1)
+        features = self.tp(features)
+        return features
+
 
 class ClusteringModel(nn.Module):
     def __init__(self, backbone, nclusters, nheads=1):

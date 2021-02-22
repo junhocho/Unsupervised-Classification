@@ -43,17 +43,29 @@ def get_feature_dimensions_backbone(p):
 
 def get_model(p, pretrain_path=None):
     # Get backbone
-    if p['backbone'] == 'resnet18':
-        if p['train_db_name'] in ['cifar-10', 'cifar-20']:
-            from models.resnet_cifar import resnet18
-            backbone = resnet18()
+    # if p['backbone'] == 'resnet18':
+    if 'resnet18' in p['backbone']  :
+        if 'hyp' in p['backbone']:
+            if p['train_db_name'] in ['cifar-10', 'cifar-20']:
+                raise NotImplementedError
 
-        elif p['train_db_name'] == 'stl-10':
-            from models.resnet_stl import resnet18
-            backbone = resnet18()
-        
+            elif p['train_db_name'] == 'stl-10':
+                from models.hypresnet_stl import hypresnet18
+                backbone = hypresnet18()
+            
+            else:
+                raise NotImplementedError
         else:
-            raise NotImplementedError
+            if p['train_db_name'] in ['cifar-10', 'cifar-20']:
+                from models.resnet_cifar import resnet18
+                backbone = resnet18()
+
+            elif p['train_db_name'] == 'stl-10':
+                from models.resnet_stl import resnet18
+                backbone = resnet18()
+            
+            else:
+                raise NotImplementedError
 
     elif p['backbone'] == 'resnet50':
         if 'imagenet' in p['train_db_name']:
@@ -70,6 +82,9 @@ def get_model(p, pretrain_path=None):
     if p['setup'] in ['simclr', 'moco']:
         from models.models import ContrastiveModel
         model = ContrastiveModel(backbone, **p['model_kwargs'])
+    elif p['setup'] in ['hypsimclr', 'hypmoco']:
+        from models.models import HypContrastiveModel
+        model = HypContrastiveModel(backbone, **p['model_kwargs'])
 
     elif p['setup'] in ['scan', 'selflabel']:
         from models.models import ClusteringModel
