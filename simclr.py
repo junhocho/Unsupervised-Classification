@@ -2,6 +2,12 @@
 Authors: Wouter Van Gansbeke, Simon Vandenhende
 Licensed under the CC BY-NC 4.0 license (https://creativecommons.org/licenses/by-nc/4.0/)
 """
+import wandb
+
+
+
+
+
 import argparse
 import os
 import torch
@@ -31,6 +37,13 @@ def main():
 
     # Retrieve config file
     p = create_config(args.config_env, args.config_exp)
+
+    session_name = "{}-{}".format(p.setup, p.train_db_name)
+    wandb.init(project='hypsimclr')
+    wandb.run.name = session_name
+    wandb.config.update(p)
+
+
     print(colored(p, 'red'))
     
     # Model
@@ -118,6 +131,7 @@ def main():
         print('Evaluate ...')
         top1 = contrastive_evaluate(val_dataloader, model, memory_bank_base)
         print('Result of kNN evaluation is %.2f' %(top1)) 
+        wandb.log({"top-1" : top1})
         
         # Checkpoint
         print('Checkpoint ...')

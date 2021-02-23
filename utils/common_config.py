@@ -45,9 +45,11 @@ def get_model(p, pretrain_path=None):
     # Get backbone
     # if p['backbone'] == 'resnet18':
     if 'resnet18' in p['backbone']  :
-        if 'hyp' in p['backbone']:
+        # if 'hyp' in p['backbone']:
+        if False:
             if p['train_db_name'] in ['cifar-10', 'cifar-20']:
-                raise NotImplementedError
+                from models.hypresnet_cifar import hypresnet18
+                backbone = hypresnet18()
 
             elif p['train_db_name'] == 'stl-10':
                 from models.hypresnet_stl import hypresnet18
