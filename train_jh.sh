@@ -6,17 +6,20 @@
 
 # simclr in STL10 setting. Include hyp layer
 # 1. add hyp layer in resnet.
+
 # export CUDA_VISIBLE_DEVICES=3
-# python simclr.py --config_env configs/hypenv.yml --config_exp configs/pretext/hypsimclr_stl10.yml
+# python simclr.py --config_env configs/hypenv.yml --config_exp configs/pretext/hypsimclr_stl10.yml --description NoL2Norm
+export CUDA_VISIBLE_DEVICES=2
+python simclr.py --config_env configs/env.yml --config_exp configs/pretext/simclr_stl10.yml --description NoL2Norm
 
 # export CUDA_VISIBLE_DEVICES=2
 # python simclr.py --config_env configs/hypenv.yml --config_exp configs/pretext/hypsimclr_cifar20.yml
-# python simclr.py --config_env configs/hypenv.yml --config_exp configs/pretext/hypsimclr_cifar20.yml --comment NoL2Norm
+# python simclr.py --config_env configs/hypenv.yml --config_exp configs/pretext/hypsimclr_cifar20.yml --description NoL2Norm
 
 
-export CUDA_VISIBLE_DEVICES=3
-# python simclr.py --config_env configs/env.yml --config_exp configs/pretext/simclr_cifar20.yml --description RealNoL2Norm-2
-python simclr.py --config_env configs/hypenv.yml --config_exp configs/pretext/hypsimclr_cifar20.yml --description NoL2Norm-2
+# export CUDA_VISIBLE_DEVICES=3
+# # python simclr.py --config_env configs/env.yml --config_exp configs/pretext/simclr_cifar20.yml --description RealNoL2Norm-2
+# python simclr.py --config_env configs/hypenv.yml --config_exp configs/pretext/hypsimclr_cifar20.yml --description NoL2Norm-2
 
 
 ## DOWNLOADING???

@@ -46,7 +46,7 @@ def main():
     if args.description:
         session_name += '-'
         session_name += args.description
-    wandb.init(project='hypsimclr')
+    wandb.init(project=p.train_db_name)
     wandb.run.name = session_name
     wandb.config.update(p)
 
@@ -138,7 +138,11 @@ def main():
         print('Evaluate ...')
         top1 = contrastive_evaluate(val_dataloader, model, memory_bank_base)
         print('Result of kNN evaluation is %.2f' %(top1)) 
+
+        ## W and B logging
         wandb.log({"top-1" : top1})
+        wandb.log({"epoch" : epoch})
+        wandb.log({"lr" : lr})
         
         # Checkpoint
         print('Checkpoint ...')
