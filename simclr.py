@@ -50,9 +50,11 @@ def main():
     if args.description:
         session_name += '-'
         session_name += args.description
-    wandb.init(project=p.train_db_name)
-    wandb.run.name = session_name
-    wandb.config.update(p)
+    use_wandb = True if not 'debug' not in args.description else False
+    if use_wandb:
+        wandb.init(project=p.train_db_name)
+        wandb.run.name = session_name
+        wandb.config.update(p)
 
 
     print(colored(p, 'red'))
@@ -144,9 +146,10 @@ def main():
         print('Result of kNN evaluation is %.2f' %(top1)) 
 
         ## W and B logging
-        wandb.log({"top-1" : top1})
-        wandb.log({"epoch" : epoch})
-        wandb.log({"lr" : lr})
+        if use_wandb:
+            wandb.log({"top-1" : top1})
+            wandb.log({"epoch" : epoch})
+            wandb.log({"lr" : lr})
         
         # Checkpoint
         print('Checkpoint ...')

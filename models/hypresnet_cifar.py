@@ -138,5 +138,5 @@ class HypResNet(nn.Module):
         return out
 
 
-def resnet18(**kwargs):
+def hypresnet18(**kwargs):
     return {'backbone': HypResNet(BasicBlock, [2, 2, 2, 2], **kwargs), 'dim': 512}
