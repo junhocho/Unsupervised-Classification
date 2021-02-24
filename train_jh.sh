@@ -9,8 +9,9 @@
 
 # export CUDA_VISIBLE_DEVICES=3
 # python simclr.py --config_env configs/hypenv.yml --config_exp configs/pretext/hypsimclr_stl10.yml --description NoL2Norm
-export CUDA_VISIBLE_DEVICES=2
-python simclr.py --config_env configs/env.yml --config_exp configs/pretext/simclr_stl10.yml --description NoL2Norm
+export CUDA_VISIBLE_DEVICES=1
+# python simclr.py --config_env configs/env.yml --config_exp configs/pretext/simclr_stl10.yml --description NoL2Norm
+python simclr.py --config_env configs/hypenv.yml --config_exp configs/pretext/hypsimclr_stl10.yml --description L2Norm
 
 # export CUDA_VISIBLE_DEVICES=2
 # python simclr.py --config_env configs/hypenv.yml --config_exp configs/pretext/hypsimclr_cifar20.yml

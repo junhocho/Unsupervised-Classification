@@ -27,7 +27,7 @@ class ContrastiveModel(nn.Module):
 
     def forward(self, x):
         features = self.contrastive_head(self.backbone(x))
-        # features = F.normalize(features, dim = 1) ## XXX : disabled L2 Norm
+        features = F.normalize(features, dim = 1) ## XXX : disabled L2 Norm
         return features
 
 class HypContrastiveModel(nn.Module):
@@ -64,7 +64,7 @@ class HypContrastiveModel(nn.Module):
 
     def forward(self, x):
         features = self.contrastive_head(self.backbone(x))
-        # features = F.normalize(features, dim = 1) ## XXX : disabled L2 Norm
+        features = F.normalize(features, dim = 1) ## XXX : disabled L2 Norm
         features = self.tp(features)   ### XXX : Poincare
         return features
 
