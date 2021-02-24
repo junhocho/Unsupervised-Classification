@@ -8,11 +8,12 @@ import torch.nn.functional as F
 
 
 class ContrastiveModel(nn.Module):
-    def __init__(self, backbone, head='mlp', features_dim=128):
+    def __init__(self, backbone, head='mlp', features_dim=128, L2Norm=True):
         super(ContrastiveModel, self).__init__()
         self.backbone = backbone['backbone']
         self.backbone_dim = backbone['dim']
         self.head = head
+        self.L2Norm = L2Norm
  
         if head == 'linear':
             self.contrastive_head = nn.Linear(self.backbone_dim, features_dim)
@@ -27,15 +28,17 @@ class ContrastiveModel(nn.Module):
 
     def forward(self, x):
         features = self.contrastive_head(self.backbone(x))
-        features = F.normalize(features, dim = 1) ## XXX : disabled L2 Norm
+        if self.L2Norm:
+            features = F.normalize(features, dim = 1) ## XXX : disabled L2 Norm
         return features
 
 class HypContrastiveModel(nn.Module):
-    def __init__(self, backbone, head='mlp', features_dim=128):
+    def __init__(self, backbone, head='mlp', features_dim=128, L2Norm=True):
         super(HypContrastiveModel, self).__init__()
         self.backbone = backbone['backbone']
         self.backbone_dim = backbone['dim']
         self.head = head
+        self.L2Norm = L2Norm
  
         if head == 'linear':
             self.contrastive_head = nn.Linear(self.backbone_dim, features_dim)
@@ -64,7 +67,8 @@ class HypContrastiveModel(nn.Module):
 
     def forward(self, x):
         features = self.contrastive_head(self.backbone(x))
-        features = F.normalize(features, dim = 1) ## XXX : disabled L2 Norm
+        if self.L2Norm:
+            features = F.normalize(features, dim = 1) ## XXX : disabled L2 Norm
         features = self.tp(features)   ### XXX : Poincare
         return features
 

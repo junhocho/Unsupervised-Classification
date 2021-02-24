@@ -24,7 +24,7 @@ args = parser.parse_args()
 
 def main():
     # Retrieve config file
-    p = create_config(args.config_env, args.config_exp)
+    p = create_config(args)
     print(colored(p, 'red'))
     
     

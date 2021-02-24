@@ -7,7 +7,13 @@ import yaml
 from easydict import EasyDict
 from utils.utils import mkdir_if_missing
 
-def create_config(config_file_env, config_file_exp, description):
+def create_config(args):
+
+    ## NOTE : edit temporary hyperparams here
+    config_file_env = args.config_file_env
+    config_file_exp = args.config_file_exp
+    description = args.description
+
     # Config for environment path
     with open(config_file_env, 'r') as stream:
         root_dir = yaml.safe_load(stream)['root_dir']

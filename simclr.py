@@ -31,16 +31,20 @@ parser.add_argument('--config_env',
                     help='Config file for the environment')
 parser.add_argument('--config_exp',
                     help='Config file for the experiment')
+## NOTE : temporary args being implemented
 parser.add_argument('--description',
                     default="",
                     help='Add description about experiment')
+parser.add_argument('--ProjectionHeadL2Norm',
+                    default=True,
+                    help='Use L2Norm at projection head')
+
 args = parser.parse_args()
 
 def main():
 
     # Retrieve config file
-    p = create_config(args.config_env, args.config_exp, args.description)
-
+    p = create_config(args)
 
     session_name = "{}-{}".format(p.setup, p.train_db_name)
     if args.description:

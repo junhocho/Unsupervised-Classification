@@ -6,6 +6,7 @@ backbone: hypresnet18
 model_kwargs:
    head: mlp
    features_dim: 128
+   L2Norm : True
 
 # Dataset
 train_db_name: stl-10
