@@ -10,8 +10,8 @@ from utils.utils import mkdir_if_missing
 def create_config(args):
 
     ## NOTE : edit temporary hyperparams here
-    config_file_env = args.config_file_env
-    config_file_exp = args.config_file_exp
+    config_file_env = args.config_env
+    config_file_exp = args.config_exp
     description = args.description
 
     # Config for environment path
