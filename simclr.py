@@ -31,14 +31,21 @@ parser.add_argument('--config_env',
                     help='Config file for the environment')
 parser.add_argument('--config_exp',
                     help='Config file for the experiment')
+parser.add_argument('--description',
+                    default="",
+                    help='Add description about experiment')
 args = parser.parse_args()
 
 def main():
 
     # Retrieve config file
-    p = create_config(args.config_env, args.config_exp)
+    p = create_config(args.config_env, args.config_exp, args.description)
+
 
     session_name = "{}-{}".format(p.setup, p.train_db_name)
+    if args.description:
+        session_name += '-'
+        session_name += args.description
     wandb.init(project='hypsimclr')
     wandb.run.name = session_name
     wandb.config.update(p)
