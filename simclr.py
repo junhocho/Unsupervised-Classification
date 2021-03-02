@@ -147,9 +147,11 @@ def main():
 
         ## W and B logging
         if use_wandb:
-            wandb.log({"top-1" : top1})
-            wandb.log({"epoch" : epoch})
-            wandb.log({"lr" : lr})
+            wandb.log({
+                "top-1" : top1,
+                "epoch" : epoch,
+                "lr" : lr
+                })
         
         # Checkpoint
         print('Checkpoint ...')
